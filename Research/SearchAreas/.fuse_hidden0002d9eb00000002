@@ -1,0 +1,7 @@
+for file in /media/dev/Maxtor/linux/spots1/Research/SearchAreas/bahrain_*
+do
+ # do something on $file
+ name="${file##*/}"
+ echo "curl localhost:4184/models/images/generic/infer_many.json -XPOST -F job_id=20170209-203323-140e -F image_list='@$file' > ${name}_predictions.txt"
+ curl localhost:4184/models/images/generic/infer_many.json -XPOST -F job_id=20170209-203323-140e -F image_list=@$file > ${name}_predictions.txt
+done

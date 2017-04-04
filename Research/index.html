@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1'>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Aerial Map Analytics - Training Tool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href='lib/mapbox.js/latest/mapbox.css' rel='stylesheet' />
+    <link rel='stylesheet' href='css/font-awesome/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='css/fonts/mplus.css'>
+    <title>geojson.io</title>
+    <link href='lib/draw/leaflet.draw.css' rel='stylesheet' />
+    <link href='lib/codemirror/lib/codemirror.css' rel='stylesheet' />
+    <!-- <link href='css/base.css' rel='stylesheet' /> -->
+    <link href='css/marker.css' rel='stylesheet' />
+    <link href='css/github_browse.css' rel='stylesheet' />
+    <link href='css/site.css' rel='stylesheet' />
+    <link href='css/theme.css' rel='stylesheet' />
+    <script src='lib/mapbox.js/latest/mapbox.js'></script>
+    <script src='lib/raven.min.js'></script>
+    <script>
+        if (/a\.tiles\.mapbox\.com/.test(L.mapbox.config.HTTP_URL))
+        {
+            Raven.config('https://c2d096c944dd4150ab7e44b0881b4a46@app.getsentry.com/11480', {
+            whitelistUrls: [/geojson\.io/],
+            ignoreErrors: [
+              'Uncaught Error: Error connecting to extension ckibcdccnfeookdmbahgiakhnjcddpki',
+              'Uncaught Error: Error connecting to extension pioclpoplcdbaefihamjohnefbikjilc'
+            ]
+            }).install();
+        }
+    </script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default no-margin">
+    <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header fixed-brand">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
+                      <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> Aerial Map Analytics</a>
+                </div><!-- navbar-header-->
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button></li>
+                            </ul>
+                </div><!-- bs-example-navbar-collapse-1 -->
+    </nav>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+
+                <li>
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-home fa-stack-1x "></i></span> Home</a>
+                       <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+                        <li><a href="#">link1</a></li>
+                        <li><a href="#">link2</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-map fa-stack-1x "></i></span>Map Tool</a>
+                </li>
+                <li>
+                    <a href="/geofence.html"><span class="fa-stack fa-lg pull-left"><i class="fa fa-globe fa-stack-1x "></i></span>Geo Fence</a>
+                </li>
+                <li>
+                    <a href="/nnvalidation.html"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-check-circle fa-stack-1x "></i></span>Human Validation</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Settings</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x "></i></span>About</a>
+                </li>
+            </ul>
+        </div><!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+
+        <div id="page-content-wrapper" style="height: 100vh;">
+
+                        <div id='geojsonio-body'>
+                            <div class='geojsonio'>
+                            <input id="buttonbro" type="button" value="Start Training">
+                            </div>
+
+            </div>
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="js/sidebar_menu.js"></script>
+    <script>
+if (self == top) {
+  document.getElementById("geojsonio-body").style.display = 'block';
+} else {
+  top.location = self.location;
+}
+</script>
+<script src='dist/delegate.js'></script>
+<script src='dist/lib.js'></script>
+<script src='dist/site.js'></script>
+<script src="js/TileLayer.GeoJSON.js"></script>
+<script type='text/javascript'>
+if (/a\.tiles\.mapbox\.com/.test(L.mapbox.config.HTTP_URL)) {
+  var _gauges = _gauges || [];
+  (function() {
+    var t   = document.createElement('script');
+    t.type  = 'text/javascript';
+    t.async = true;
+    t.id    = 'gauges-tracker';
+    t.setAttribute('data-site-id', '51eee846108d7b2871000081');
+    t.src = 'https://secure.gaug.es/track.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(t, s);
+  })();
+}
+ window.api.map.addLayer(L.mapbox.tileLayer('mapbox.satellite'));
+ var lyr = L.tileLayer('./tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1.0, attribution: ""});
+ window.api.map.addLayer(lyr);
+var map = window.api.map
+
+
+function long2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
+function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
+
+function tile2long(x,z) {
+ return (x/Math.pow(2,z)*360-180);
+}
+function tile2lat(y,z) {
+ var n=Math.PI-2*Math.PI*y/Math.pow(2,z);
+ return (180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))));
+}
+
+function getTileUrls(bounds, tileLayer, zoom) {
+    var min = map.project(bounds.getNorthWest(), zoom).divideBy(256).floor(),
+        max = map.project(bounds.getSouthEast(), zoom).divideBy(256).floor(),
+        urls = [];
+
+    for (var i = min.x; i <= max.x; i++) {
+        for (var j = min.y; j <= max.y; j++) {
+            var coords = new L.Point(i, j);
+            coords.z = zoom;
+            urls.push(tileLayer.getTileUrl(coords));
+        }
+    }
+
+    return urls;
+}
+
+map.setView(new L.LatLng(37.749, -122.424), 13);
+   var style = {
+       "clickable": true,
+       "color": "#00D",
+       "fillColor": "#00D",
+       "weight": 1.0,
+       "opacity": 0.3,
+       "fillOpacity": 0.2
+   };
+   var hoverStyle = {
+       "fillOpacity": 0.5
+   };
+  //  var geojsonURL = "https://vector.mapzen.com/osm/roads/{z}/{x}/{y}.json?api_key=vector-tiles-LM25tq4";//'http://tile.openstreetmap.us/vectiles-highroad/{z}/{x}/{y}.topojson';
+  //  var geojsonTileLayer = new L.TileLayer.GeoJSON(geojsonURL, {
+  //          clipTiles: true,
+  //          unique: function (feature) {
+  //              return feature.id;
+  //          }
+  //      }, {
+  //          style: style,
+  //          onEachFeature: function (feature, layer) {
+  //              if (feature.properties) {
+  //                  var popupString = '<div class="popup">';
+  //                  for (var k in feature.properties) {
+  //                      var v = feature.properties[k];
+  //                      popupString += k + ': ' + v + '<br />';
+  //                  }
+  //                  popupString += '</div>';
+  //                  layer.bindPopup(popupString);
+  //              }
+  //              if (!(layer instanceof L.Point)) {
+  //                  layer.on('mouseover', function () {
+  //                      layer.setStyle(hoverStyle);
+  //                  });
+  //                  layer.on('mouseout', function () {
+  //                      layer.setStyle(style);
+  //                  });
+  //              }
+  //          }
+  //      }
+  //  );
+  //  map.addLayer(geojsonTileLayer);
+
+function sendGeo() {
+    $('a:contains("Add bboxes")')[0].click()
+    $.ajax({
+        url:'geojson/',
+        type:'post',
+        contentType: 'application/json',
+        data: JSON.stringify({apple: "APPLE", geojson: window.api.data.get('map')}),//window.api.data.get('map')}),
+        success:function(){
+            alert("Sent GeoJSON to server for training neural network.");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+     alert("Server not responding.");
+  }
+    });
+}
+
+
+
+
+
+$(document).ready(function() {
+  $('#buttonbro').css('position', 'absolute');
+  $('#buttonbro').css('z-index', 10);
+  $('.file-bar').hide();
+  // $('.right').hide();
+  // $('.map').css('width', '100%');
+  $('.collapse-button')[0].click();
+  $('.pad0x')[0].click();
+  $('.right').hide();
+  // leaflet-map-pane
+
+  $('#buttonbro').click(function() {
+       sendGeo();
+  });
+  $('.leaflet-draw-draw-polyline').hide();
+  $('.leaflet-draw-draw-marker').hide();
+  $(".leaflet-control-mapbox-geocoder-form").submit(function() {
+    var patt = new RegExp("-?[0-9]+.?[0-9]+[,]\\s?-?[0-9]+.?[0-9]+");
+    var str = $(".leaflet-control-mapbox-geocoder-form").children().val();
+    var res = patt.test(str);
+    if (res) {
+      console.log(str.split(','));
+      var split = str.split(',');
+      window.api.map.setView(split, 17);
+    }
+
+  })
+
+});
+
+$(document).keydown(function(evt){
+    if (evt.keyCode==32){ // space clicked
+        //evt.preventDefault();
+        $('.leaflet-draw-draw-rectangle')[0].click();
+    }
+});
+
+
+
+</script>
+</body>
+
+</html>

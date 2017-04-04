@@ -1,0 +1,19 @@
+{
+  "error": {
+    "message": "'NoneType' object has no attribute 'iteritems'", 
+    "trace": [
+      "Traceback (most recent call last):", 
+      "  File \"/home/dev/aws/DIGITS/caffe-nv/digits-env/local/lib/python2.7/site-packages/flask/app.py\", line 1475, in full_dispatch_request", 
+      "    rv = self.dispatch_request()", 
+      "  File \"/home/dev/aws/DIGITS/caffe-nv/digits-env/local/lib/python2.7/site-packages/flask/app.py\", line 1461, in dispatch_request", 
+      "    return self.view_functions[rule.endpoint](**req.view_args)", 
+      "  File \"/home/dev/aws/DIGITS/caffe-nv/digits/digits/webapp.py\", line 81, in decorated", 
+      "    return f(*args, **kwargs)", 
+      "  File \"/home/dev/aws/DIGITS/caffe-nv/digits/digits/model/images/generic/views.py\", line 703, in infer_many", 
+      "    result[path] = dict((name, blob[i].tolist()) for name, blob in outputs.iteritems())", 
+      "AttributeError: 'NoneType' object has no attribute 'iteritems'", 
+      ""
+    ], 
+    "type": "AttributeError"
+  }
+}
